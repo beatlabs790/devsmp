@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev SMP | Official Minecraft Server</title>
+    <meta name="description" content="Welcome to Dev SMP, a premium glassmorphic Minecraft SMP with Java and Bedrock crossplay. Join us today!">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <img src="logo.png" alt="Dev SMP Logo" class="loader-logo">
+        <div class="loader-bar-container">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Live Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo.png" alt="Dev SMP Logo" class="logo-img">
+                <span class="logo-text">DEV SMP</span>
+            </a>
+            
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+                    <!-- Sun Icon (Light Mode) -->
+                    <svg class="sun-icon" viewBox="0 0 24 24">
+                        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.38-.39.38-1.03 0-1.41z"/>
+                    </svg>
+                    <!-- Moon Icon (Dark Mode) -->
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.6-.1 1.2.3 1.3.9.1.6-.2 1.2-.8 1.4-3.4 1-5.7 4.1-5.7 7.6 0 4.4 3.6 8 8 8 3.5 0 6.6-2.3 7.6-5.7.2-.6.8-.9 1.4-.8.6.1 1 .7.9 1.3-.9 4.7-5 8.2-9.8 8.2z"/>
+                    </svg>
+                </button>
+                
+                <!-- Menu Toggle -->
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="rules.html">Rules</a></li>
+                    <li><a href="devs.html">Developers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <img src="logo.png" alt="Dev SMP Logo" class="hero-logo reveal">
+            <div class="hero-badge reveal reveal-delay-1">
+                <span></span> Live Status Checked
+            </div>
+            <h1 class="hero-title reveal reveal-delay-2">Welcome to <span>Dev SMP</span></h1>
+            <p class="hero-subtitle reveal reveal-delay-3">
+                A community-driven Minecraft server where creativity, programming enthusiasts, and players come together to build, survive, and share. Compatible with both Java and Bedrock versions!
+            </p>
+
+            <!-- Connections Grid -->
+            <div class="connection-grid">
+                <!-- Java Card -->
+                <div class="ip-card glass-panel java reveal-left reveal-delay-3">
+                    <div class="ip-header">
+                        <span class="platform-badge">JAVA EDITION</span>
+                        <span class="ip-icon">☕</span>
+                    </div>
+                    <span class="ip-label">Server IP</span>
+                    <span class="ip-address" id="java-ip">DevuncopySMP.aternos.me:60456</span>
+                    <button class="copy-btn" onclick="copyIP('DevuncopySMP.aternos.me:60456', 'Java IP')">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                        Copy Java IP
+                    </button>
+                </div>
+
+                <!-- Bedrock Card -->
+                <div class="ip-card glass-panel bedrock reveal-right reveal-delay-3">
+                    <div class="ip-header">
+                        <span class="platform-badge">BEDROCK EDITION</span>
+                        <span class="ip-icon">📱</span>
+                    </div>
+                    <span class="ip-label">Server IP / Port</span>
+                    <span class="ip-address" id="bedrock-ip">DevuncopySMP.aternos.me (Port: 60456)</span>
+                    <button class="copy-btn" onclick="copyIP('DevuncopySMP.aternos.me', 'Bedrock IP', '60456')">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                        Copy Bedrock IP
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Server Status Section -->
+        <section class="status-section" id="status">
+            <div class="status-widget glass-panel reveal">
+                <div class="status-header-row">
+                    <div class="status-server-info">
+                        <img src="logo.png" alt="Server Icon" class="status-logo">
+                        <div class="status-title">
+                            <h2>Server Status</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Live information from mcstatus.io API</p>
+                        </div>
+                    </div>
+                    <div class="status-indicator" id="status-indicator-badge">
+                        <span class="status-dot"></span>
+                        <span id="status-text" class="skeleton skeleton-text" style="width: 60px;"></span>
+                    </div>
+                </div>
+
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="status-item-label">Players Online</div>
+                        <div class="status-item-value" id="status-players">
+                            <span class="skeleton skeleton-text"></span>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-item-label">Version Compatibility</div>
+                        <div class="status-item-value" id="status-version">
+                            <span class="skeleton skeleton-text"></span>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-item-label">Connection Port</div>
+                        <div class="status-item-value">60456</div>
+                    </div>
+                    
+                    <div class="status-item status-motd" id="status-motd-container">
+                        <div class="status-item-label" style="margin-bottom: 8px;">Message of the Day (MOTD)</div>
+                        <div id="status-motd" style="font-family: monospace;">
+                            <span class="skeleton skeleton-text" style="width: 80%;"></span>
+                            <span class="skeleton skeleton-text" style="width: 50%; margin-top: 5px;"></span>
+                        </div>
+                    </div>
+
+                    <div class="status-item status-player-list" id="player-list-container" style="display: none;">
+                        <div class="player-list-title">Active Players</div>
+                        <div class="player-tags" id="player-tags-list">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Server Features Section -->
+        <section class="features-section" id="features">
+            <h2 class="section-title reveal">Why Play on <span>Dev SMP?</span></h2>
+            <p class="section-subtitle reveal reveal-delay-1">
+                We offer an optimized gameplay environment built for survival enthusiasts, developers, and friendly players alike.
+            </p>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="glass-card reveal reveal-delay-1">
+                    <span class="feature-icon">🎮</span>
+                    <h3>Cross-Platform Support</h3>
+                    <p>Play seamlessly from both PC (Java Edition) and Mobile/Consoles (Bedrock Edition) with full inventory sync and synchronized gameplay.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card reveal reveal-delay-2">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Lag-Free Performance</h3>
+                    <p>Hosted on high-speed hardware and optimized with Paper/Spigot configurations to ensure smooth block updates and minimal server TPS drops.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card reveal reveal-delay-3">
+                    <span class="feature-icon">🛡️</span>
+                    <h3>Active Protection</h3>
+                    <p>Our structures and systems are actively monitored. CoreProtect is installed, allowing admins to immediately rollback any griefing or theft.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discord Section -->
+        <section class="discord-section" id="discord">
+            <div class="discord-container glass-panel reveal">
+                <div class="discord-info-side">
+                    <div class="hero-badge" style="margin-bottom: 15px;">
+                        <span></span> Community Chats
+                    </div>
+                    <h3>Join Our <span>Discord Channels</span></h3>
+                    <p>
+                        Get announcements, read dev change-logs, chat with online players, and get instant technical support directly from our Discord servers.
+                    </p>
+                </div>
+                
+                <div class="discord-cards-side">
+                    <!-- Dev SMP Discord -->
+                    <div class="discord-join-card">
+                        <div class="discord-card-details">
+                            <span class="discord-card-icon">💬</span>
+                            <div>
+                                <div class="discord-card-name">Dev SMP Discord</div>
+                                <div class="discord-card-sub">Server Community</div>
+                            </div>
+                        </div>
+                        <a href="https://discord.gg/vTKmTT2vW6" target="_blank" class="discord-mini-btn">Join</a>
+                    </div>
+
+                    <!-- BeatLabs Discord -->
+                    <div class="discord-join-card">
+                        <div class="discord-card-details">
+                            <span class="discord-card-icon">🛠️</span>
+                            <div>
+                                <div class="discord-card-name">BeatLabs Discord</div>
+                                <div class="discord-card-sub">Developer Hub</div>
+                            </div>
+                        </div>
+                        <a href="https://discord.gg/X5X7eXGu3s" target="_blank" class="discord-mini-btn">Join</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Owners Section -->
+        <section class="owners-section" id="owners">
+            <h2 class="section-title reveal">Meet the <span>Owners</span></h2>
+            <p class="section-subtitle reveal reveal-delay-1">
+                The masterminds behind Dev SMP, maintaining the server gameplay, architecture, and developer environment.
+            </p>
+
+            <div class="owners-grid">
+                <!-- Founder Card -->
+                <div class="owner-card glass-panel reveal reveal-delay-2">
+                    <div class="owner-avatar-container">
+                        <img src="arshh.jpg" alt="arshh" class="owner-avatar">
+                    </div>
+                    <h3 class="owner-name">arshh</h3>
+                    <div class="owner-role">Founder</div>
+                    <div class="owner-socials">
+                        <a href="https://instagram.com/imarshh.3" target="_blank" class="social-badge">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                            </svg>
+                            @imarshh.3
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Co-Founder Card -->
+                <div class="owner-card glass-panel reveal reveal-delay-3">
+                    <div class="owner-avatar-container">
+                        <img src="aksansh.jpg" alt="akshansh" class="owner-avatar">
+                    </div>
+                    <h3 class="owner-name">akshansh</h3>
+                    <div class="owner-role">Co-Founder</div>
+                    <div class="owner-socials">
+                        <a href="https://instagram.com/akshansh_6969" target="_blank" class="social-badge">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                            </svg>
+                            @akshansh_6969
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="logo.png" alt="Dev SMP Logo" class="logo-img" style="height: 32px; width: 32px;">
+                        <span class="logo-text" style="font-size: 1.2rem; color: #f8fafc;">DEV SMP</span>
+                    </div>
+                    <p class="footer-desc">
+                        A premium vanilla-survival experience. Join players from Java and Bedrock to build something extraordinary.
+                    </p>
+                </div>
+
+                <div class="footer-links-col">
+                    <h4 class="footer-links-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rules.html">Server Rules</a></li>
+                        <li><a href="devs.html">Developers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-status-col">
+                    <h4 class="footer-links-title">Connection Info</h4>
+                    <div class="mini-status-widget">
+                        <div class="mini-status-line">
+                            <span style="color: #64748b;">Java IP:</span>
+                            <span style="font-family: monospace; font-weight: 500; color: #e2e8f0;">DevuncopySMP.aternos.me:60456</span>
+                        </div>
+                        <div class="mini-status-line">
+                            <span style="color: #64748b;">Bedrock IP:</span>
+                            <span style="font-family: monospace; font-weight: 500; color: #e2e8f0;">DevuncopySMP.aternos.me</span>
+                        </div>
+                        <div class="mini-status-line">
+                            <span style="color: #64748b;">Bedrock Port:</span>
+                            <span style="font-family: monospace; font-weight: 500; color: #e2e8f0;">60456</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div>
+                    &copy; 2026 Dev SMP. All rights reserved.
+                </div>
+                <div class="footer-credits">
+                    Built with <span class="heart-icon">&hearts;</span> by <a href="devs.html">BeatLabs</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Clipboard Toast -->
+    <div id="toast-alert" class="toast-alert">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message" class="toast-message">IP address copied to clipboard!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

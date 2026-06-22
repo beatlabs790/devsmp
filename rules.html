@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Rules | Dev SMP</title>
+    <meta name="description" content="Read the official gameplay rules for Dev SMP to ensure a fun, fair, and safe survival experience for everyone.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <img src="logo.png" alt="Dev SMP Logo" class="loader-logo">
+        <div class="loader-bar-container">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Live Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo.png" alt="Dev SMP Logo" class="logo-img">
+                <span class="logo-text">DEV SMP</span>
+            </a>
+            
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+                    <!-- Sun Icon (Light Mode) -->
+                    <svg class="sun-icon" viewBox="0 0 24 24">
+                        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.38-.39.38-1.03 0-1.41z"/>
+                    </svg>
+                    <!-- Moon Icon (Dark Mode) -->
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.6-.1 1.2.3 1.3.9.1.6-.2 1.2-.8 1.4-3.4 1-5.7 4.1-5.7 7.6 0 4.4 3.6 8 8 8 3.5 0 6.6-2.3 7.6-5.7.2-.6.8-.9 1.4-.8.6.1 1 .7.9 1.3-.9 4.7-5 8.2-9.8 8.2z"/>
+                    </svg>
+                </button>
+                
+                <!-- Menu Toggle -->
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rules.html" class="active">Rules</a></li>
+                    <li><a href="devs.html">Developers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container rules-container">
+        
+        <div style="text-align: center; margin-bottom: 50px;">
+            <div class="hero-badge reveal">
+                <span></span> Code of Conduct
+            </div>
+            <h1 class="hero-title reveal reveal-delay-1">Server <span>Rules</span></h1>
+            <p class="hero-subtitle reveal reveal-delay-2" style="margin: 0 auto;">
+                To maintain a fair, engaging, and friendly environment, all players are required to follow our server rules. Violations may result in warnings, temporary suspensions, or permanent bans.
+            </p>
+        </div>
+
+        <!-- Rules Grid -->
+        <div class="rules-grid">
+            
+            <!-- Rule 1 -->
+            <div class="glass-card reveal reveal-delay-1">
+                <div class="rule-number">01</div>
+                <h3 class="rule-title">No Griefing or Stealing</h3>
+                <p class="rule-desc">
+                    Respect other players' hard work. Do not destroy, modify, or steal from builds, chests, or farms that do not belong to you, unless explicitly permitted by the owner.
+                </p>
+            </div>
+
+            <!-- Rule 2 -->
+            <div class="glass-card reveal reveal-delay-2">
+                <div class="rule-number">02</div>
+                <h3 class="rule-title">No Hacking or Cheating</h3>
+                <p class="rule-desc">
+                    The use of hacked clients, mods that provide unfair advantages (like X-Ray, fly, speed, auto-clickers), or exploitation of game bugs and dupes is strictly prohibited. Minimap and performance mods are allowed.
+                </p>
+            </div>
+
+            <!-- Rule 3 -->
+            <div class="glass-card reveal reveal-delay-3">
+                <div class="rule-number">03</div>
+                <h3 class="rule-title">Be Respectful in Chat</h3>
+                <p class="rule-desc">
+                    Keep the community positive. Do not engage in harassment, hate speech, toxic behavior, excessive spamming, or advertising of other Minecraft servers in the chat.
+                </p>
+            </div>
+
+            <!-- Rule 4 -->
+            <div class="glass-card reveal reveal-delay-1">
+                <div class="rule-number">04</div>
+                <h3 class="rule-title">PVP Guidelines</h3>
+                <p class="rule-desc">
+                    Consensual PVP and duels are encouraged! However, random player killing (Rk), spawn-trapping, or constantly targeting a specific player to ruin their experience is not allowed.
+                </p>
+            </div>
+
+            <!-- Rule 5 -->
+            <div class="glass-card reveal reveal-delay-2">
+                <div class="rule-number">05</div>
+                <h3 class="rule-title">Lag Prevention</h3>
+                <p class="rule-desc">
+                    Keep redstone contraptions and mob farms optimized. Build shut-off switches for high-performance builds. Creating intentional lag machines or overloading the server will result in an immediate ban.
+                </p>
+            </div>
+
+            <!-- Rule 6 -->
+            <div class="glass-card reveal reveal-delay-3">
+                <div class="rule-number">06</div>
+                <h3 class="rule-title">Report Exploits</h3>
+                <p class="rule-desc">
+                    If you discover an exploit, dupe glitch, or server bug, report it immediately to the server owners (arshh or akshansh). Utilizing exploits for personal gain instead of reporting them is a bannable offense.
+                </p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="logo.png" alt="Dev SMP Logo" class="logo-img" style="height: 32px; width: 32px;">
+                        <span class="logo-text" style="font-size: 1.2rem; color: #f8fafc;">DEV SMP</span>
+                    </div>
+                    <p class="footer-desc">
+                        A premium vanilla-survival experience. Join players from Java and Bedrock to build something extraordinary.
+                    </p>
+                </div>
+
+                <div class="footer-links-col">
+                    <h4 class="footer-links-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rules.html">Server Rules</a></li>
+                        <li><a href="devs.html">Developers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-status-col">
+                    <h4 class="footer-links-title">Connection Info</h4>
+                    <div class="mini-status-widget">
+                        <div class="mini-status-line">
+                            <span style="color: #64748b;">Java IP:</span>
+                            <span style="font-family: monospace; font-weight: 500; color: #e2e8f0;">DevuncopySMP.aternos.me:60456</span>
+                        </div>
+                        <div class="mini-status-line">
+                            <span style="color: #64748b;">Bedrock IP:</span>
+                            <span style="font-family: monospace; font-weight: 500; color: #e2e8f0;">DevuncopySMP.aternos.me</span>
+                        </div>
+                        <div class="mini-status-line">
+                            <span style="color: #64748b;">Bedrock Port:</span>
+                            <span style="font-family: monospace; font-weight: 500; color: #e2e8f0;">60456</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div>
+                    &copy; 2026 Dev SMP. All rights reserved.
+                </div>
+                <div class="footer-credits">
+                    Built with <span class="heart-icon">&hearts;</span> by <a href="devs.html">BeatLabs</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
