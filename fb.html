@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Dev SMP</title>
+    <meta name="description" content="Secure control panel for Dev SMP. Manage server details and maintenance mode.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Special styles for admin dashboard */
+        .admin-login-card {
+            max-width: 400px;
+            width: 100%;
+            margin: 100px auto;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .admin-input-group {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .admin-input-group label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .admin-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+        .light-theme .admin-input {
+            background: rgba(15, 23, 42, 0.02);
+            color: var(--text-primary);
+        }
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 10px var(--border-glow);
+        }
+        .admin-dashboard-container {
+            max-width: 700px;
+            width: 100%;
+            margin: 60px auto 100px auto;
+            padding: 40px;
+        }
+        /* Toggle Switch */
+        .toggle-switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .light-theme .toggle-switch-container {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .light-theme .slider {
+            background-color: rgba(15, 23, 42, 0.08);
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--text-secondary);
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: white;
+        }
+        .status-badge-indicator {
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .status-badge-indicator.active {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .status-badge-indicator.inactive {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <img src="logo.png" alt="Dev SMP Logo" class="loader-logo">
+        <div class="loader-bar-container">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Live Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo.png" alt="Dev SMP Logo" class="logo-img">
+                <span class="logo-text">DEV SMP</span>
+            </a>
+            
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24">
+                        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.38-.39.38-1.03 0-1.41z"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.6-.1 1.2.3 1.3.9.1.6-.2 1.2-.8 1.4-3.4 1-5.7 4.1-5.7 7.6 0 4.4 3.6 8 8 8 3.5 0 6.6-2.3 7.6-5.7.2-.6.8-.9 1.4-.8.6.1 1 .7.9 1.3-.9 4.7-5 8.2-9.8 8.2z"/>
+                    </svg>
+                </button>
+                
+                <!-- Menu Toggle -->
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rules.html">Rules</a></li>
+                    <li><a href="devs.html">Developers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Authentication Card -->
+        <div id="login-container" class="admin-login-card glass-panel reveal">
+            <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 10px;">Admin <span>Portal</span></h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 30px;">Enter security PIN code to access settings.</p>
+            
+            <form id="login-form">
+                <div class="admin-input-group">
+                    <label for="passcode">Security PIN</label>
+                    <input type="password" id="passcode" class="admin-input" placeholder="••••" required autocomplete="off">
+                </div>
+                <button type="submit" class="copy-btn" style="margin-top: 10px; background: var(--primary); border-color: var(--primary);">
+                    Access Dashboard
+                </button>
+            </form>
+        </div>
+
+        <!-- Admin Control Panel (Hidden until Login) -->
+        <div id="dashboard-container" class="admin-dashboard-container glass-panel reveal" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 30px;">
+                <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 0;">Admin <span>Dashboard</span></h2>
+                <button id="logout-btn" class="copy-btn" style="width: auto; padding: 6px 16px; font-size: 0.85rem;">Logout</button>
+            </div>
+
+            <!-- Maintenance Mode Control -->
+            <div class="toggle-switch-container">
+                <div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 5px;">Maintenance Mode</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Blocks public access and displays a maintenance screen.</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span id="maintenance-badge" class="status-badge-indicator inactive">Inactive</span>
+                    <label class="switch">
+                        <input type="checkbox" id="maintenance-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Server Connection Settings -->
+            <h3 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px;">Server Connections</h3>
+            
+            <form id="settings-form">
+                <div class="admin-input-group">
+                    <label for="java-ip">Java IP Address</label>
+                    <input type="text" id="java-ip-input" class="admin-input" placeholder="e.g. DevuncopySMP.aternos.me:60456" required autocomplete="off">
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+                    <div class="admin-input-group">
+                        <label for="bedrock-ip">Bedrock IP Address</label>
+                        <input type="text" id="bedrock-ip-input" class="admin-input" placeholder="e.g. DevuncopySMP.aternos.me" required autocomplete="off">
+                    </div>
+                    <div class="admin-input-group">
+                        <label for="bedrock-port">Bedrock Port</label>
+                        <input type="text" id="bedrock-port-input" class="admin-input" placeholder="e.g. 60456" required autocomplete="off">
+                    </div>
+                </div>
+
+                <button type="submit" id="save-btn" class="copy-btn" style="margin-top: 20px; background: var(--primary); border-color: var(--primary);">
+                    ⚡ Save Settings
+                </button>
+            </form>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer style="margin-top: 100px;">
+        <div class="container" style="text-align: center; color: #64748b; font-size: 0.85rem;">
+            &copy; 2026 Dev SMP. All rights reserved. | Built by <a href="devs.html" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">BeatLabs</a>
+        </div>
+    </footer>
+
+    <!-- Toast Alert -->
+    <div id="toast-alert" class="toast-alert">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message" class="toast-message"></span>
+    </div>
+
+    <!-- Script Configuration -->
+    <script>
+        // CONFIGURATIONS (Firebase Database URL and Admin Passcode)
+        const FIREBASE_DB_URL = "https://devsmp-83a81-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        const ADMIN_PASSCODE = "admindev"; // Default passcode to access settings
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginContainer = document.getElementById('login-container');
+            const dashboardContainer = document.getElementById('dashboard-container');
+            const loginForm = document.getElementById('login-form');
+            const passcodeField = document.getElementById('passcode');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            const maintenanceToggle = document.getElementById('maintenance-toggle');
+            const maintenanceBadge = document.getElementById('maintenance-badge');
+            const javaIpInput = document.getElementById('java-ip-input');
+            const bedrockIpInput = document.getElementById('bedrock-ip-input');
+            const bedrockPortInput = document.getElementById('bedrock-port-input');
+            const settingsForm = document.getElementById('settings-form');
+            const saveBtn = document.getElementById('save-btn');
+
+            // Check if already authenticated (in-session)
+            if (sessionStorage.getItem('isAdminAuth') === 'true') {
+                showDashboard();
+            }
+
+            // 1. LOGIN HANDLER
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const pin = passcodeField.value.trim();
+
+                if (pin === ADMIN_PASSCODE) {
+                    sessionStorage.setItem('isAdminAuth', 'true');
+                    showToast('Access Granted!');
+                    showDashboard();
+                } else {
+                    showToast('Incorrect passcode PIN!');
+                    passcodeField.value = '';
+                    passcodeField.focus();
+                }
+            });
+
+            // 2. LOGOUT HANDLER
+            logoutBtn.addEventListener('click', () => {
+                sessionStorage.removeItem('isAdminAuth');
+                window.location.reload();
+            });
+
+            // 3. SHOW DASHBOARD & FETCH DATABASE VALUES
+            async function showDashboard() {
+                loginContainer.style.display = 'none';
+                dashboardContainer.style.display = 'block';
+
+                try {
+                    // Fetch existing database configuration
+                    const response = await fetch(`${FIREBASE_DB_URL}.json`);
+                    if (!response.ok) throw new Error('Database fetch failed');
+                    const data = await response.json();
+
+                    if (data) {
+                        // Populate values
+                        javaIpInput.value = data.javaIP || 'DevuncopySMP.aternos.me:60456';
+                        bedrockIpInput.value = data.bedrockIP || 'DevuncopySMP.aternos.me';
+                        bedrockPortInput.value = data.bedrockPort || '60456';
+                        
+                        const isMaint = data.maintenance === true;
+                        maintenanceToggle.checked = isMaint;
+                        updateMaintenanceBadge(isMaint);
+                    }
+                } catch (error) {
+                    console.error('Database load error:', error);
+                    showToast('Failed to load settings from Firebase.');
+                }
+            }
+
+            // 4. UPDATE MAINTENANCE BADGE STYLING
+            function updateMaintenanceBadge(isActive) {
+                if (isActive) {
+                    maintenanceBadge.textContent = "Active";
+                    maintenanceBadge.className = "status-badge-indicator active";
+                } else {
+                    maintenanceBadge.textContent = "Inactive";
+                    maintenanceBadge.className = "status-badge-indicator inactive";
+                }
+            }
+
+            maintenanceToggle.addEventListener('change', (e) => {
+                updateMaintenanceBadge(e.target.checked);
+            });
+
+            // 5. SAVE SETTINGS (PATCH DATABASE)
+            settingsForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                saveBtn.disabled = true;
+                saveBtn.textContent = '⚡ Saving...';
+
+                const newSettings = {
+                    maintenance: maintenanceToggle.checked,
+                    javaIP: javaIpInput.value.trim(),
+                    bedrockIP: bedrockIpInput.value.trim(),
+                    bedrockPort: bedrockPortInput.value.trim()
+                };
+
+                try {
+                    const response = await fetch(`${FIREBASE_DB_URL}.json`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(newSettings)
+                    });
+
+                    if (!response.ok) throw new Error('Failed to update settings');
+
+                    showToast('Settings saved successfully!');
+                } catch (error) {
+                    console.error('Database save error:', error);
+                    showToast('Failed to save settings. Check permissions.');
+                } finally {
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = '⚡ Save Settings';
+                }
+            });
+        });
+
+        // Toast Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast-alert');
+            const toastMessage = document.getElementById('toast-message');
+            
+            if (toast && toastMessage) {
+                toastMessage.textContent = message;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

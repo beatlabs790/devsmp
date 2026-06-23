@@ -58,6 +58,7 @@
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="rules.html">Rules</a></li>
                     <li><a href="devs.html">Developers</a></li>
+                    <li><a href="fb.html">Admin</a></li>
                 </ul>
             </nav>
         </div>
@@ -124,9 +125,14 @@
                             <p style="color: var(--text-secondary); font-size: 0.9rem;">Live information from mcstatus.io API</p>
                         </div>
                     </div>
-                    <div class="status-indicator" id="status-indicator-badge">
-                        <span class="status-dot"></span>
-                        <span id="status-text" class="skeleton skeleton-text" style="width: 60px;"></span>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+                        <div class="status-indicator" id="status-indicator-badge">
+                            <span class="status-dot"></span>
+                            <span id="status-text" class="skeleton skeleton-text" style="width: 60px;"></span>
+                        </div>
+                        <a href="fb.html" class="copy-btn" style="font-size: 0.8rem; padding: 6px 14px; background: rgba(255, 255, 255, 0.05); border-color: var(--border-color); color: var(--text-primary); text-decoration: none; display: inline-flex; width: auto; height: auto; margin-top: 5px;">
+                            ⚙️ Admin Panel
+                        </a>
                     </div>
                 </div>
 
